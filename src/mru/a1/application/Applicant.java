@@ -91,13 +91,15 @@ public class Applicant {
         this.score = score;
     }
 
+    
+
+
     @Override
     public String toString() {
         return getFirstName() + " " + getLastName() + " " + getAge() + " " + getScore();
     }
-
-    public static int calculateAgeScore (String age) {
-        int ageInt = Integer.parseInt(age);
+    public static int calculateAgeScore (int age) {
+        int ageInt = age;
         // parse int wil take the age string for the file and make it into a useable integer
         if (ageInt < 18) {
             return 0;
@@ -171,9 +173,115 @@ public class Applicant {
     
     }
 
-    public static int calculateEduScore (String educationLevel){
-        if (educationLevel.equals("Secondary school (high school diploma)"));
+    public static int calculateEduScore (String educationLevel) {
+        if (educationLevel.equals("Secondary school (high school diploma)")) {
             return 5;
-        else if (educationLevel.equals(''))
+        } else if (educationLevel.equals("One-year degree, diploma or certificate")) {
+            return 15;
+        } else if (educationLevel.equals("Two-year degree, diploma or certificate")) {
+            return 19;
+        } else if (educationLevel.equals("Bachelor's degree or other programs (three or more years)")) {
+            return 21;
+        } else if (educationLevel.equals("Two or more certificates, diplomas, or degrees")) {
+            return 22;
+        } else if (educationLevel.equals("Professional degree needed to practice in a licensed profession")) {
+            return 23;
+        } else if (educationLevel.equals("University degree at the Master's level")) {
+            return 23;
+        } else if (educationLevel.equals("University degree at the Doctoral (PhD) level")){
+            return 25;
+        } else return 0;
     }
+
+    public static int calculateWorkExpScore (String workExp) {
+        int yearsWorked = Integer.parseInt(workExp);
+
+        if (yearsWorked >= 6) {
+            return 15;
+        } else if (yearsWorked == 4 || yearsWorked == 5) {
+            return 13;
+        } else if (yearsWorked == 2 || yearsWorked == 3) {
+            return 11;
+        } else if (yearsWorked == 1) {
+            return 9;
+        } else return 0;
+    }
+
+    public static int calculateArrangedEmployment (String workResponse) {
+        if (workResponse.equals("yes")) {
+            return 10;
+        } else return 0;
+    }
+
+    public static int calculateAdaptabilityScore (String spouseLanguage, String spouseEducation, String spouseWork, String applicantEdu, String applicantArrangedWork, String applicantWorkHis, String applicantRelative) {
+        int adaptabilityScore = 0;
+
+        {
+            if (spouseLanguage.equals("yes"))
+                adaptabilityScore += 5;
+        }
+        
+        {
+            if (spouseEducation.equals("yes"))
+                adaptabilityScore += 5;
+        }
+
+        {
+            if (spouseWork.equals("yes"))
+                adaptabilityScore += 5;
+        }
+
+        {
+            if (applicantEdu.equals("yes"))
+                adaptabilityScore += 5;
+        }
+
+        {
+            if (applicantRelative.equals("yes"))
+                adaptabilityScore += 5;
+        }
+
+        {
+            if (applicantArrangedWork.equals("yes"))
+                adaptabilityScore += 5;
+        }
+
+        {
+            if (applicantWorkHis.equals("yes"))
+                adaptabilityScore += 5;
+        }
+
+        {
+        if (adaptabilityScore > 10)
+            adaptabilityScore = 10;
+        }
+        
+        return adaptabilityScore;
+
+    }
+
+    public static int calculateTotalScore(int age, String speakingCLB, String listeningCLB, String readingCLB, String writingCLB, String secondLanguageCLB, String educationLevel, String workExp, String workResponse, String spouseLanguage, String spouseEducation, String spouseWork, String applicantEdu, String applicantArrangedWork, String applicantWorkHis, String applicantRelative) {
+        int totalScore = 0;
+    
+        // Calculate individual scores
+        int ageScore = calculateAgeScore(age);
+        int langScore = calculateLangScore(speakingCLB, listeningCLB, readingCLB, writingCLB, secondLanguageCLB);
+        int eduScore = calculateEduScore(educationLevel);
+        int workExpScore = calculateWorkExpScore(workExp);
+        int arrangedEmploymentScore = calculateArrangedEmployment(workResponse);
+        int adaptabilityScore = calculateAdaptabilityScore(spouseLanguage, spouseEducation, spouseWork, applicantEdu, applicantArrangedWork, applicantWorkHis, applicantRelative);
+    
+        // Sum up the individual scores
+        totalScore = ageScore + langScore + eduScore + workExpScore + arrangedEmploymentScore + adaptabilityScore;
+    
+        return totalScore;
+    }
+
+
+
 }
+
+
+
+
+

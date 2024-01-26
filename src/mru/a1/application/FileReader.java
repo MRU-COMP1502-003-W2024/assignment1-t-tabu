@@ -53,6 +53,7 @@ public class FileReader {
         // this pattern allows us to read through the file while there is still information
         // to be read from the file
         //
+        scnInputFile.nextLine();
         while(scnInputFile.hasNext()) {
             // String line = scnInputFile.nextLine();
             // System.out.println(line);
@@ -97,7 +98,6 @@ public class FileReader {
 
     }
 
-
     public static void writeToFile (String outputFile, ArrayList<Applicant> applicants) throws IOException {
         FileWriter fWriter = new FileWriter(outputFile, false);
         PrintWriter pwOutputFile = new PrintWriter(fWriter);
@@ -108,4 +108,7 @@ public class FileReader {
 
         pwOutputFile.close();
     }
+    
 }
+
+
