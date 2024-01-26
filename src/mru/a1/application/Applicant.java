@@ -91,22 +91,20 @@ public class Applicant {
         this.score = score;
     }
 
-    
-
 
     @Override
     public String toString() {
         return getFirstName() + " " + getLastName() + " " + getAge() + " " + getScore();
     }
+
     public static int calculateAgeScore (int age) {
-        int ageInt = age;
         // parse int wil take the age string for the file and make it into a useable integer
-        if (ageInt < 18) {
+        if (age < 18) {
             return 0;
-        } else if (ageInt >= 18 && ageInt <= 35) {
+        } else if (age >= 18 && age <= 35) {
             return 12;
-        } else if (ageInt >= 36 && ageInt <= 46) {
-            return 12 - (ageInt - 35);
+        } else if (age >= 36 && age <= 46) {
+            return 12 - (age - 35);
         } else {
             return 0;
         }

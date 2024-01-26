@@ -15,7 +15,7 @@ public class FileReader {
         //
         // pattern of getting the input filename from the user
         //
-        System.out.print("Input file: ");
+        System.out.print("Provide the name of the input file (located in data\\input\\):  ");
         Scanner keyboard = new Scanner(System.in);
         String strFilename = keyboard.nextLine();
 
@@ -30,8 +30,8 @@ public class FileReader {
         // build the absolute file path
         //
         File inputFile = new File(strWorkingFolder + INPUT_FOLDER + strFilename);
-        // File inputFile = new File(strFilename);
-        
+        File outputFile = new File (strWorkingFolder + OUTPUT_FOLDER + strFilename);
+
         //
         // sometimes getPath() and getAbsolutePath() will return the same information, but the more reliable way
         // to get the absolute file path is getAbsolutePath()
@@ -53,7 +53,8 @@ public class FileReader {
         // this pattern allows us to read through the file while there is still information
         // to be read from the file
         //
-        scnInputFile.nextLine();
+        scnInputFile.nextLine(); // skip the file header
+
         while(scnInputFile.hasNext()) {
             // String line = scnInputFile.nextLine();
             // System.out.println(line);
@@ -83,6 +84,7 @@ public class FileReader {
             //
             // add the applicant that was just created to our list of applicants
             //
+
             applicant_list.add(applicant);
         }
 
@@ -90,15 +92,14 @@ public class FileReader {
 
         writeToFile("output.txt", applicant_list);
 
-
         // close the connection to the input file
         scnInputFile.close();
         // close the connection to the keyboard
         keyboard.close();
-
     }
 
     public static void writeToFile (String outputFile, ArrayList<Applicant> applicants) throws IOException {
+
         FileWriter fWriter = new FileWriter(outputFile, false);
         PrintWriter pwOutputFile = new PrintWriter(fWriter);
 
@@ -108,7 +109,6 @@ public class FileReader {
 
         pwOutputFile.close();
     }
-    
 }
 
 
