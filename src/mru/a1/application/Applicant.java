@@ -2,7 +2,26 @@ package mru.a1.application;
 
 /**
  *
+ * @param firstName               The first name of the applicant.
+ * @param lastName                The last name of the applicant.
+ * @param age                     The age of the applicant.
+ * @param speakingCLB                The applicant's primary language speaking Canadian Language Benchmark (CLB).
+ * @param listeningCLB               The applicant's primary language listening CLB.
+ * @param readingCLB                 The applicant's primary language reading CLB.
+ * @param writingCLB                The applicant's primary language writing CLB.
+ * @param allCLB2                 'yes' or 'no' indicating if the applicant has CLB at least 5 in all language skills.
+ * @param education               Text representing the education that the applicant has received.
+ * @param workExperience          The number of years of relevant work experience.
+ * @param arrangedEmployment      'yes' indicating if the applicant has arranged employment; 'no' otherwise.
+ * @param spouseLang              'yes' or 'no' value representing whether the applicant's spouse has an acceptable language score.
+ * @param spouseEducation         'yes' or 'no' value representing whether the applicant's spouse has relevant educational qualifications.
+ * @param spouseWork              'yes' or 'no' value representing whether the applicant's spouse has relevant work experience.
+ * @param applicantEducation      'yes' or 'no' value representing whether the applicant has completed at least 2 academic years of study in canada.
+ * @param applicantWork           'yes' or 'no' value representing whether the applicant has relevant work experience.
+ * @param applicantEmployment     'yes' or 'no' value representing whether the applicant has arranged employment.
+ * @param relatives               'yes' or 'no' value representing whether the applicant has family in canada .
  */
+
 public class Applicant {
     private String firstName;
     private String lastName;
@@ -33,9 +52,6 @@ public class Applicant {
     public Applicant(String paramFirstName, String paramLastName, String paramAge, String paramScore) {
         firstName = paramFirstName;
         lastName = paramLastName;
-        //
-        // code to be developed together in Tuesday lab
-        //
         age = Integer.valueOf(paramAge);
         score = Integer.valueOf(paramScore);
     }
@@ -97,6 +113,12 @@ public class Applicant {
         return getFirstName() + " " + getLastName() + " " + getAge() + " " + getScore();
     }
 
+    /**
+     * Calculates the applicant's age score based on age range.
+     *
+     * @param age The age of the applicant.
+     * @return The calculated age score.
+     */
     public static int calculateAgeScore (int age) {
         // parse int wil take the age string for the file and make it into a useable integer
         if (age < 18) {
@@ -110,6 +132,17 @@ public class Applicant {
         }
     }
 
+
+    /**
+     * Calculates the language score based on language proficiency in listening, speaking, reading, writing, and second language.
+     *
+     * @param speakingCLB     The applicant's speaking Canadian Language Benchmark (CLB).
+     * @param listeningCLB    The applicant's listening CLB.
+     * @param readingCLB      The applicant's reading CLB.
+     * @param writingCLB      The applicant's writing CLB.
+     * @param secondLanguageCLB Whether the applicant has CLB at least 5 in all language skills.
+     * @return The calculated language score.
+     */
     public static int calculateLangScore (String speakingCLB, String listeningCLB, String readingCLB, String writingCLB, String secondLanguageCLB){
     int speakingPoints = 0;
     int listeningPoints = 0;
@@ -171,6 +204,13 @@ public class Applicant {
     
     }
 
+
+    /**
+     * Calculates the education score based on the level of education attained by the applicant.
+     *
+     * @param educationLevel Text representing the education level of the applicant.
+     * @return The calculated education score.
+     */
     public static int calculateEduScore (String educationLevel) {
         if (educationLevel.equals("Secondary school (high school diploma)")) {
             return 5;
@@ -191,6 +231,12 @@ public class Applicant {
         } else return 0;
     }
 
+    /**
+     * Calculates the work experience score based on the number of years of relevant work experience.
+     *
+     * @param workExp The number of years of relevant work experience.
+     * @return The calculated work experience score.
+     */
     public static int calculateWorkExpScore (String workExp) {
         int yearsWorked = Integer.parseInt(workExp);
 
@@ -205,12 +251,31 @@ public class Applicant {
         } else return 0;
     }
 
+    /**
+     * Calculates the arranged employment score based on whether the applicant has arranged employment.
+     *
+     * @param workResponse 'yes' indicating if the applicant has arranged employment; 'no' otherwise.
+     * @return The calculated arranged employment score.
+     */
     public static int calculateArrangedEmployment (String workResponse) {
         if (workResponse.equals("yes")) {
             return 10;
         } else return 0;
     }
 
+        /**
+     * Calculates the adaptability score based on various factors such as spouse language, education, work experience,
+     * applicant's education, arranged employment, work history, and relatives in Canada.
+     *
+     * @param spouseLanguage     'yes' or 'no' value representing whether the applicant's spouse has a language scores in above 5 in all categories
+     * @param spouseEducation    'yes' or 'no' value representing whether the applicant's spouse has relevant educational
+     * @param spouseWork         'yes' or 'no' value representing whether the applicant's spouse has relevant work experience.
+     * @param applicantEdu       'yes' or 'no' value representing whether the applicant has completed at least 2 academic years of study in Canada.
+     * @param applicantArrangedWork 'yes' or 'no' value representing whether the applicant has arranged employment.
+     * @param applicantWorkHis   'yes' or 'no' value representing whether the applicant has relevant work experience.
+     * @param applicantRelative  'yes' or 'no' value representing whether the applicant has family in Canada.
+     * @return The calculated adaptability score.
+     */
     public static int calculateAdaptabilityScore (String spouseLanguage, String spouseEducation, String spouseWork, String applicantEdu, String applicantArrangedWork, String applicantWorkHis, String applicantRelative) {
         int adaptabilityScore = 0;
 
@@ -258,6 +323,11 @@ public class Applicant {
 
     }
 
+    /**
+     * Calculates and returns the total score for the applicant using various scoring functions
+     *
+     * @return The total score for the applicant.
+     */
     public static int calculateTotalScore(int age, String speakingCLB, String listeningCLB, String readingCLB, String writingCLB, String secondLanguageCLB, String educationLevel, String workExp, String workResponse, String spouseLanguage, String spouseEducation, String spouseWork, String applicantEdu, String applicantArrangedWork, String applicantWorkHis, String applicantRelative) {
         int totalScore = 0;
     
@@ -275,9 +345,9 @@ public class Applicant {
         return totalScore;
     }
 
-
-
 }
+
+
 
 
 

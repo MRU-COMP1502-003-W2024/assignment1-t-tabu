@@ -11,6 +11,15 @@ public class FileReader {
     final static String INPUT_FOLDER = "/data/input/";
     final static String OUTPUT_FOLDER = "/data/output/";
 
+/**
+ * FileReader class for processing applicant data from an input file and generating an output file.
+ *
+ * provides methods for reading applicant information from a the input file,
+ * creating a list of Applicant objects, and writing the processed data to an output file.
+ *
+ */
+
+
     public static void main(String[] args) throws Exception {
         //
         // pattern of getting the input filename from the user
@@ -48,7 +57,6 @@ public class FileReader {
         //
         ArrayList <Applicant> applicant_list = new ArrayList<Applicant>();
 
-
         //
         // this pattern allows us to read through the file while there is still information
         // to be read from the file
@@ -56,12 +64,14 @@ public class FileReader {
         scnInputFile.nextLine(); // skip the file header
 
         while(scnInputFile.hasNext()) {
-            // String line = scnInputFile.nextLine();
-            // System.out.println(line);
+        String line = scnInputFile.nextLine();
+        Applicant applicant = new Applicant(line);
+
             /*
              * Since I know that the file is structured with four columns of data for every single row,
              * I can confidently call four next-related methods to process the data
              */
+
             // column 1 = first-name
             String firstName = scnInputFile.next();
             // column 2 = last-name
@@ -79,7 +89,7 @@ public class FileReader {
             //
             // create a new object of type Applicant using the information read above
             //
-            Applicant applicant = new Applicant(firstName, lastName, age, score);
+            //Applicant applicant = new Applicant(firstName, lastName, age, score);
             Applicant.increaseCounter();
             //
             // add the applicant that was just created to our list of applicants
@@ -88,7 +98,7 @@ public class FileReader {
             applicant_list.add(applicant);
         }
 
-        // System.out.println(Applicant.getApplicantCounter());
+        System.out.println(Applicant.getApplicantCounter());
 
         writeToFile("output.txt", applicant_list);
 
